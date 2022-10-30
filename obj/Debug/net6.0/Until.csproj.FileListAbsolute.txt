@@ -1,0 +1,15 @@
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.csproj.AssemblyReference.cache
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.GeneratedMSBuildEditorConfig.editorconfig
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.AssemblyInfoInputs.cache
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.AssemblyInfo.cs
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.csproj.CoreCompileInputs.cache
+/opt/Projects/DiscordBots/Until/bin/Debug/net6.0/Until
+/opt/Projects/DiscordBots/Until/bin/Debug/net6.0/Until.deps.json
+/opt/Projects/DiscordBots/Until/bin/Debug/net6.0/Until.runtimeconfig.json
+/opt/Projects/DiscordBots/Until/bin/Debug/net6.0/Until.dll
+/opt/Projects/DiscordBots/Until/bin/Debug/net6.0/ref/Until.dll
+/opt/Projects/DiscordBots/Until/bin/Debug/net6.0/Until.pdb
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.dll
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/ref/Until.dll
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.pdb
+/opt/Projects/DiscordBots/Until/obj/Debug/net6.0/Until.genruntimeconfig.cache
