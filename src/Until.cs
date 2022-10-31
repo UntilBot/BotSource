@@ -35,6 +35,7 @@ public class Until
 			.AddSingleton(this.interaction)
 			.BuildServiceProvider();
 	}
+	private Until() { }
 
 	private Task Log(LogMessage message)
 	{
