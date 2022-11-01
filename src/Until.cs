@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Until.Services;
 
 namespace Until;
 
@@ -12,6 +13,8 @@ public class Until
 	private readonly Config config;
 	private readonly DiscordSocketClient client;
 	private readonly InteractionService interaction;
+	private readonly EmoteService emote;
+	private readonly GameService game;
 
 	private readonly IServiceProvider services;
 
@@ -29,6 +32,8 @@ public class Until
 			UseInteractionSnowflakeDate = false
 		});
 		this.interaction = new(this.client);
+		this.emote = new();
+		this.game = new();
 
 		this.services = new ServiceCollection()
 			.AddSingleton(this.client)
@@ -52,7 +57,7 @@ public class Until
 
 	private async Task ReadyHandler()
 	{
-		// await this.emoji.LoadEmojis(this.client, this.config.EmojiGuilds);
+		await this.emote.LoadEmotes(this.client, this.config.EmoteGuilds);
 		await this.interaction.AddModulesAsync(
 			typeof(Until).Assembly, this.services);
 #if DEBUG

@@ -5,18 +5,29 @@ namespace Until.Services;
 
 public class EmoteService
 {
-	private List<UntilEmote> emojis;
+	private List<GameEmote> emojis;
 
-	public UntilEmote GetEmote(string name) =>
+	public GameEmote GetEmote(string name) =>
 		this.emojis.FirstOrDefault(e => e.Name == name);
 
-	public async Task LoadEmojis(DiscordSocketClient client, ulong[] guilds)
+	public async Task LoadEmotes(DiscordSocketClient client, ulong[] guilds)
 	{
+		Log("Emotes loading");
 		this.emojis = new();
 		foreach (ulong guild in guilds)
-			foreach (GuildEmote emote in await client.GetGuild(guild).GetEmotesAsync())
-				this.emojis.Add(new UntilEmote(emote));
+		{
+			IReadOnlyCollection<GuildEmote> emotes =
+				await client.GetGuild(guild).GetEmotesAsync();
+			foreach (GuildEmote emote in emotes)
+				this.emojis.Add(
+					await GameEmote.Parse(emote).DownloadAsync());
+		}
+		Log("Emotes loaded");
 	}
+
+	private void Log(in string msg) =>
+		Console.WriteLine(
+			$"{DateTime.Now.ToString("HH:mm:ss")} {"Service",-12}{msg}");
 
 	public EmoteService() { }
 }
