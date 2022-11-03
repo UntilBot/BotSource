@@ -7,6 +7,8 @@ public class EmoteService
 {
 	private List<GameEmote> emojis;
 
+	public EmoteService() { }
+
 	public GameEmote GetEmote(string name) =>
 		this.emojis.FirstOrDefault(e => e.Name == name);
 
@@ -29,5 +31,4 @@ public class EmoteService
 		Console.WriteLine(
 			$"{DateTime.Now.ToString("HH:mm:ss")} {"Service",-12}{msg}");
 
-	public EmoteService() { }
 }
