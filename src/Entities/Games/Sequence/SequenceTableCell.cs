@@ -1,9 +1,9 @@
-using Until.Sequence.Enums;
+using Until.GameEnums.Sequence;
 
 namespace Until;
 
 public class SequenceTableCell
 {
-	public FrenchCard card { get; set; }
+	public FrenchCard Card { get; }
 	public Color Color { get; set; }
 }

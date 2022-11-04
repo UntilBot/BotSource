@@ -18,7 +18,8 @@ public static class FrenchCards
 		{ 'T', "Ten" },
 		{ 'J', "Jack" },
 		{ 'Q', "Queen" },
-		{ 'K', "King" }
+		{ 'K', "King" },
+		{ 'X', "Joker" }
 	};
 
 	public static Dictionary<char, string> Suits => new()
@@ -26,13 +27,24 @@ public static class FrenchCards
 		{ 'C', "Clubs" },
 		{ 'D', "Diamonds" },
 		{ 'H', "Hearts" },
-		{ 'S', "Spades" }
+		{ 'S', "Spades" },
+		{ 'X', "Joker" }
 	};
 
-	public static IEnumerable<FrenchCard> GetDeck(EmoteService emoteService) =>
-		Faces.Keys.SelectMany(
-			face => Suits.Keys.Select(
-				suit => FrenchCard.Parse($"{face}{suit}", emoteService)));
+	public static IEnumerable<FrenchCard> GetDeck(
+		in EmoteService emoteService) =>
+			GetDeck(0, emoteService);
+
+	public static IEnumerable<FrenchCard> GetDeck(
+		byte jokerCount, EmoteService emoteService)
+	{
+		foreach (char face in Faces.Keys.Take(13))
+			foreach (char suit in Suits.Keys.Take(4))
+				yield return FrenchCard.Parse($"{face}{suit}", emoteService);
+
+		for (byte i = 0; i < jokerCount; i++)
+			yield return FrenchCard.Parse("XX", emoteService);
+	}
 
 	public static FrenchCard GetRandomCard(EmoteService emoteService)
 	{

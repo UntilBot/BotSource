@@ -1,4 +1,4 @@
-namespace Until.Sequence.Enums;
+namespace Until.GameEnums.Sequence;
 
 public enum Color
 {
