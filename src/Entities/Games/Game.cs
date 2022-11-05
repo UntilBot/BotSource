@@ -2,19 +2,24 @@ namespace Until;
 
 public abstract class Game
 {
+	private List<IPlayer> players;
+
 	public int Id { get; set; }
 	public ulong ChannelId { get; }
-	public List<IPlayer> Players { get; }
 
 	public Game(ulong channelId)
 	{
+		this.players = new();
+
 		this.ChannelId = channelId;
-		this.Players = new();
 	}
 
 	public IPlayer GetPlayer(ulong playerId) =>
-		this.Players.SingleOrDefault(p => p.Id == playerId);
+		this.players.SingleOrDefault(p => p.Id == playerId);
 
 	public IPlayer GetPlayer(in byte index) =>
-		this.Players.ElementAt(index);
+		this.players.ElementAt(index);
+
+	public void AddPlayer(IPlayer player) =>
+		this.players.Add(player);
 }

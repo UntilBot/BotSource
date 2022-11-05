@@ -9,11 +9,17 @@ public class SequencePlayer : IPlayer
 	public ulong Id { get; }
 	public SequencePlayerColor Color { get; set; }
 
+	public byte HandCount =>
+		(byte)this.hand.Count;
+
 	public SequencePlayer(ulong id)
 	{
 		this.hand = new();
 
 		this.Id = id;
-		this.Color = new(GameEnums.Sequence.Color.None);
+		this.Color = new(GameColor.None);
 	}
+
+	public void AddCard(FrenchCard card) =>
+		this.hand.Add(card);
 }

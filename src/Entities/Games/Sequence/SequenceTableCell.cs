@@ -4,6 +4,6 @@ namespace Until;
 
 public class SequenceTableCell
 {
-	public FrenchCard Card { get; }
-	public Color Color { get; set; }
+	public FrenchCard Card { get; set; }
+	public GameColor GameColor { get; set; }
 }

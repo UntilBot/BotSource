@@ -1,6 +1,6 @@
 namespace Until.GameEnums.Sequence;
 
-public enum Color
+public enum GameColor
 {
 	None,
 	Red,
@@ -9,7 +9,7 @@ public enum Color
 	Joker
 }
 
-public enum Status
+public enum GameStatus
 {
 	Join,
 	Color,

@@ -1,20 +1,35 @@
+using Discord;
 using Until.GameEnums.Sequence;
 
 namespace Until;
 
 public class SequencePlayerColor
 {
-	public Color Color { get; }
+	public GameColor GameColor { get; }
 
-	public string ColorEmoji => Color switch
+	public Color DiscordColor
 	{
-		Color.Red => "🔴",
-		Color.Green => "🟢",
-		Color.Blue => "🔵",
-		Color.Joker => "❔",
+		get
+		{
+			Dictionary<GameColor, Color> colors = new Dictionary<GameColor, Color>
+				{
+					{ GameColor.Red, new(0xbe1931) },
+					{ GameColor.Green, new(0x4da631) },
+					{ GameColor.Blue, new(0x445893) }
+				};
+			return colors[this.GameColor];
+		}
+	}
+
+	public SequencePlayerColor(GameColor color) =>
+		this.GameColor = color;
+
+	public override string ToString() => GameColor switch
+	{
+		GameColor.Red => "🔴",
+		GameColor.Green => "🟢",
+		GameColor.Blue => "🔵",
+		GameColor.Joker => "❔",
 		_ => "⚫"
 	};
-
-	public SequencePlayerColor(Color color) =>
-		this.Color = color;
 }

@@ -5,18 +5,18 @@ namespace Until;
 
 public class FrenchCard : ICard
 {
-	private string face;
-	private string suit;
-
 	public string Name { get; }
 	public GameEmote Emote { get; }
 
+	public string Face { get; }
+	public string Suit { get; }
+
 	public FrenchCard(string face, string suit, GameEmote emote)
 	{
-		this.face = face;
-		this.suit = suit;
 		this.Name = $"{face} of {suit}";
 		this.Emote = emote;
+		this.Face = face;
+		this.Suit = suit;
 	}
 
 	public static FrenchCard Parse(in string code, EmoteService emoteService)

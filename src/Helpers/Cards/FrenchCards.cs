@@ -32,10 +32,6 @@ public static class FrenchCards
 	};
 
 	public static IEnumerable<FrenchCard> GetDeck(
-		in EmoteService emoteService) =>
-			GetDeck(0, emoteService);
-
-	public static IEnumerable<FrenchCard> GetDeck(
 		byte jokerCount, EmoteService emoteService)
 	{
 		foreach (char face in Faces.Keys.Take(13))
