@@ -10,7 +10,7 @@ namespace Until.Commands;
 [RequireOwner]
 public class Dev : InteractionModuleBase
 {
-	public DiscordSocketClient client { get; set; }
+	public DiscordSocketClient Client { get; set; }
 
 	[SlashCommand("restart", "[DEV] Restart the bot")]
 	public async Task Restart()

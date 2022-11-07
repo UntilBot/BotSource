@@ -27,12 +27,10 @@ public class GameEmote : IEmote
 		using (HttpClient httpClient = new())
 		{
 			byte[] bytes = await httpClient.GetByteArrayAsync(this.Url);
-			using (MemoryStream ms = new(bytes))
-			{
-				this.Image = SKBitmap.Decode(ms).Resize(
-					new SKImageInfo(64, 64),
-					SKFilterQuality.Low);
-			}
+			using MemoryStream ms = new(bytes);
+			this.Image = SKBitmap.Decode(ms).Resize(
+				new SKImageInfo(64, 64),
+				SKFilterQuality.Low);
 		}
 		return this;
 	}

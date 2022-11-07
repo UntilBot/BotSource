@@ -2,7 +2,7 @@ namespace Until;
 
 public abstract class Game
 {
-	private List<IPlayer> players;
+	private readonly List<IPlayer> players;
 
 	public int Id { get; set; }
 	public ulong ChannelId { get; }

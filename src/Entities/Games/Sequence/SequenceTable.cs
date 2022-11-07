@@ -51,13 +51,13 @@ public class SequenceTable
 
 	public FileAttachment ToImage(in FrenchCard highlightedCard)
 	{
-		using (SKSurface surface = SKSurface.Create(new SKImageInfo(640, 766)))
-		{
-			SKCanvas canvas = surface.Canvas;
-			canvas.Clear(SKColors.Transparent);
+		using SKSurface surface = SKSurface.Create(new SKImageInfo(640, 766));
 
-			string[] numbers = new[]
-			{
+		SKCanvas canvas = surface.Canvas;
+		canvas.Clear(SKColors.Transparent);
+
+		string[] numbers = new[]
+		{
 				"one",
 				"two",
 				"three",
@@ -69,25 +69,24 @@ public class SequenceTable
 				"nine"
 			};
 
-			byte i = 0;
-			for (byte y = 0; y < 10; y++)
-				for (byte x = 0; x < 10; x++)
-				{
-					SequenceTableCell cell = this.table[x, y];
-					GameColor color = cell.GameColor;
-					bool unclaimed =
-						color == GameColor.None ||
-						color == GameColor.Joker;
-					
-					
-				}
+		byte i = 0;
+		for (byte y = 0; y < 10; y++)
+			for (byte x = 0; x < 10; x++)
+			{
+				SequenceTableCell cell = this.table[x, y];
+				GameColor color = cell.GameColor;
+				bool unclaimed =
+					color == GameColor.None ||
+					color == GameColor.Joker;
 
-			return new(
-				surface
-					.Snapshot()
-					.Encode(SKEncodedImageFormat.Png, 100)
-					.AsStream(),
-				"Until-Sequence.png");
-		}
+
+			}
+
+		return new(
+			surface
+				.Snapshot()
+				.Encode(SKEncodedImageFormat.Png, 100)
+				.AsStream(),
+			"Until-Sequence.png");
 	}
 }

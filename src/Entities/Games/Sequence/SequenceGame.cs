@@ -7,7 +7,7 @@ namespace Until;
 
 public class SequenceGame : Game
 {
-	private EmoteService emote;
+	private readonly EmoteService emote;
 
 	private SequenceTable table;
 	private List<FrenchCard> deck;

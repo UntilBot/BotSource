@@ -11,19 +11,20 @@ namespace Until;
 public class Until
 {
 	private readonly Config config;
-	private readonly DiscordSocketClient client;
-	private readonly InteractionService interaction;
-	private readonly EmoteService emote;
-	private readonly GameService game;
-
 	private readonly IServiceProvider services;
+
+	public DiscordSocketClient Client { get; }
+	public InteractionService Interaction { get; }
+	public EmoteService Emote { get; }
+	public GameService Game { get; }
 
 	public Until(string configPath)
 	{
 		Config config = JsonSerializer.Deserialize<Config>(
 			File.ReadAllText(configPath, Encoding.UTF8));
 		this.config = config;
-		this.client = new(new()
+
+		this.Client = new(new()
 		{
 			GatewayIntents =
 				GatewayIntents.Guilds |
@@ -31,13 +32,15 @@ public class Until
 			HandlerTimeout = null,
 			UseInteractionSnowflakeDate = false
 		});
-		this.interaction = new(this.client);
-		this.emote = new();
-		this.game = new();
+		this.Interaction = new(this.Client);
+		this.Emote = new();
+		this.Game = new();
 
 		this.services = new ServiceCollection()
-			.AddSingleton(this.client)
-			.AddSingleton(this.interaction)
+			.AddSingleton(this.Client)
+			.AddSingleton(this.Interaction)
+			.AddSingleton(this.Emote)
+			.AddSingleton(this.Game)
 			.BuildServiceProvider();
 	}
 	private Until() { }
@@ -51,17 +54,17 @@ public class Until
 	private async Task ExecuteInteractionAsync<T>(T interaction)
 		where T : SocketInteraction
 	{
-		SocketInteractionContext<T> context = new(client, interaction);
-		await this.interaction.ExecuteCommandAsync(context, services);
+		SocketInteractionContext<T> context = new(Client, interaction);
+		await Interaction.ExecuteCommandAsync(context, services);
 	}
 
 	private async Task ReadyHandler()
 	{
-		await this.emote.LoadEmotes(this.client, this.config.EmoteGuilds);
-		await this.interaction.AddModulesAsync(
+		await Emote.LoadEmotes(Client, this.config.EmoteGuilds);
+		await Interaction.AddModulesAsync(
 			typeof(Until).Assembly, this.services);
 #if DEBUG
-		await this.interaction.RegisterCommandsToGuildAsync(
+		await Interaction.RegisterCommandsToGuildAsync(
 			this.config.DebugGuild, true);
 #else
         await this.interaction.RegisterCommandsGloballyAsync(true);
@@ -70,17 +73,17 @@ public class Until
 
 	public async Task MainAsync()
 	{
-		client.Log += Log;
+		Client.Log += Log;
 
-		await client.LoginAsync(TokenType.Bot, this.config.Token);
-		await client.StartAsync();
+		await Client.LoginAsync(TokenType.Bot, this.config.Token);
+		await Client.StartAsync();
 
-		this.client.SlashCommandExecuted += ExecuteInteractionAsync;
-		this.client.ButtonExecuted += ExecuteInteractionAsync;
-		this.client.SelectMenuExecuted += ExecuteInteractionAsync;
-		this.client.ModalSubmitted += ExecuteInteractionAsync;
+		Client.SlashCommandExecuted += ExecuteInteractionAsync;
+		Client.ButtonExecuted += ExecuteInteractionAsync;
+		Client.SelectMenuExecuted += ExecuteInteractionAsync;
+		Client.ModalSubmitted += ExecuteInteractionAsync;
 
-		this.client.Ready += ReadyHandler;
+		Client.Ready += ReadyHandler;
 
 		await Task.Delay(-1);
 	}

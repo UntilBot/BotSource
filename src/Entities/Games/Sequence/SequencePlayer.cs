@@ -4,7 +4,7 @@ namespace Until;
 
 public class SequencePlayer : IPlayer
 {
-	private List<FrenchCard> hand;
+	private readonly List<FrenchCard> hand;
 
 	public ulong Id { get; }
 	public SequencePlayerColor Color { get; set; }

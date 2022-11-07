@@ -27,8 +27,7 @@ public class EmoteService
 		Log("Emotes loaded");
 	}
 
-	private void Log(in string msg) =>
+	private static void Log(in string msg) =>
 		Console.WriteLine(
-			$"{DateTime.Now.ToString("HH:mm:ss")} {"Service",-12}{msg}");
-
+			$"{DateTime.Now:HH:mm:ss} {"Service",-12}{msg}");
 }
