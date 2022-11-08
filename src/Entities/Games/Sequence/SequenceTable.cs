@@ -8,10 +8,12 @@ namespace Until;
 public class SequenceTable
 {
 	private readonly SequenceTableCell[,] table;
+	private readonly EmoteService emote;
 
 	public SequenceTable(EmoteService emoteService)
 	{
 		this.table = new SequenceTableCell[10, 10];
+		this.emote = emoteService;
 
 		string[] defaultTable = new[]
 		{
@@ -52,34 +54,46 @@ public class SequenceTable
 	public FileAttachment ToImage(in FrenchCard highlightedCard)
 	{
 		using SKSurface surface = SKSurface.Create(new SKImageInfo(640, 766));
+		using SKCanvas canvas = surface.Canvas;
 
-		SKCanvas canvas = surface.Canvas;
 		canvas.Clear(SKColors.Transparent);
 
 		string[] numbers = new[]
 		{
-				"one",
-				"two",
-				"three",
-				"four",
-				"five",
-				"six",
-				"seven",
-				"eight",
-				"nine"
-			};
+			"one",
+			"two",
+			"three",
+			"four",
+			"five",
+			"six",
+			"seven",
+			"eight",
+			"nine"
+		};
 
-		byte i = 0;
+		byte n = 0;
 		for (byte y = 0; y < 10; y++)
 			for (byte x = 0; x < 10; x++)
 			{
 				SequenceTableCell cell = this.table[x, y];
 				GameColor color = cell.GameColor;
-				bool unclaimed =
-					color == GameColor.None ||
-					color == GameColor.Joker;
 
+				// bool isClaimed =
+				// 	!(color == GameColor.None ||
+				// 	color == GameColor.Joker);
+				// bool isFaded = false;
+				// bool isHalfFaded = false;
+				// bool isNumber = false;
 
+				// string displayCardName = cell.Card.Name;
+
+				// if (highlightedCard != null)
+				// 	if (cell.Card == highlightedCard)
+				// 		isNumber = true;
+				// 	else
+				// 		isFaded = true;
+
+				// TODO ↑
 			}
 
 		return new(
