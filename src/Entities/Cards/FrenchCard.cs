@@ -5,7 +5,7 @@ namespace Until;
 
 public class FrenchCard : ICard
 {
-	public string Name { get; }
+	public string Name { get => $"{Face} of {Suit}"; }
 	public GameEmote Emote { get; }
 
 	public string Face { get; }
@@ -13,8 +13,8 @@ public class FrenchCard : ICard
 
 	public FrenchCard(string face, string suit, GameEmote emote)
 	{
-		this.Name = $"{face} of {suit}";
 		this.Emote = emote;
+
 		this.Face = face;
 		this.Suit = suit;
 	}

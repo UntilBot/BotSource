@@ -51,6 +51,7 @@ public class SequenceTable
 			.Select(cell => cell.Card.Suit)
 			.Distinct();
 
+	public FileAttachment ToImage() => ToImage(null);
 	public FileAttachment ToImage(in FrenchCard highlightedCard)
 	{
 		using SKSurface surface = SKSurface.Create(new SKImageInfo(640, 766));
@@ -77,23 +78,24 @@ public class SequenceTable
 			{
 				SequenceTableCell cell = this.table[x, y];
 				GameColor color = cell.GameColor;
+				bool isClaimed =
+					!(color == GameColor.None ||
+					color == GameColor.Joker);
 
-				// bool isClaimed =
-				// 	!(color == GameColor.None ||
-				// 	color == GameColor.Joker);
-				// bool isFaded = false;
-				// bool isHalfFaded = false;
-				// bool isNumber = false;
+				string temp;
+				if (isClaimed)
+					temp = $"{color.ToString().ToLower()}_chip_card";
+				else
+					temp = cell.Card.Emote.Name;
 
-				// string displayCardName = cell.Card.Name;
-
-				// if (highlightedCard != null)
-				// 	if (cell.Card == highlightedCard)
-				// 		isNumber = true;
-				// 	else
-				// 		isFaded = true;
-
-				// TODO ↑
+				if (highlightedCard != null)
+				{
+					temp = $"faded_{temp}";
+					if (isClaimed)
+						temp = $"half_{temp}";
+					else if (cell.Card == highlightedCard)
+						temp = $"{numbers[n++]}_{temp}";
+				}
 			}
 
 		return new(
