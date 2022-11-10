@@ -94,8 +94,13 @@ public class SequenceTable
 					if (isClaimed)
 						temp = $"half_{temp}";
 					else if (cell.Card == highlightedCard)
-						temp = $"{numbers[n++]}_{temp}";
+						temp = $"card_{numbers[n++]}";
 				}
+
+				canvas.DrawBitmap(
+					this.emote.GetEmote(temp).Image,
+					SKRect.Create(x * 64, y * 78, 64, 64)
+				);
 			}
 
 		return new(
