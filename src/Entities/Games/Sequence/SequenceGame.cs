@@ -1,3 +1,4 @@
+using Discord;
 using Until.GameEnums.Sequence;
 using Until.Helpers;
 using Until.Extensions;
@@ -8,12 +9,14 @@ namespace Until;
 public class SequenceGame : Game
 {
 	private readonly EmoteService emote;
-
-	private SequenceTable table;
+	private readonly SequenceTable table;
 	private List<FrenchCard> deck;
 
 	public GameStatus Status { get; set; }
 	public byte Turn { get; set; }
+
+	public SequencePlayer CurrentPlayer =>
+		GetPlayer(Turn) as SequencePlayer;
 
 	public SequenceGame(
 		ulong channelId, ulong userId, EmoteService emoteService)
@@ -29,4 +32,11 @@ public class SequenceGame : Game
 
 		AddPlayer(new SequencePlayer(userId));
 	}
+
+	public byte CountCardOnTable(string cardName) =>
+		this.table.CountCard(cardName);
+
+	public FileAttachment GetTableImage() => GetTableImage(null);
+	public FileAttachment GetTableImage(in FrenchCard highlightedCard) =>
+		this.table.ToImage(highlightedCard);
 }

@@ -75,7 +75,6 @@ public class SequenceTable
 			}
 	}
 
-	public FileAttachment ToImage() => ToImage(null);
 	public FileAttachment ToImage(in FrenchCard highlightedCard)
 	{
 		using SKSurface surface = SKSurface.Create(new SKImageInfo(640, 766));
