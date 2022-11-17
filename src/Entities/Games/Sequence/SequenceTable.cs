@@ -44,12 +44,36 @@ public class SequenceTable
 			}
 	}
 
-	public IEnumerable<string> AvaliableSuits() =>
+	public byte CountCard(string cardName) =>
+		(byte)this.table
+			.Cast<SequenceTableCell>()
+			.Count(c =>
+				c.GameColor == GameColor.None &&
+				c.Card.Name == cardName);
+
+	public IEnumerable<string> GetAvaliableSuits() =>
 		this.table
 			.Cast<SequenceTableCell>()
-			.Where(cell => cell.GameColor == GameColor.None)
-			.Select(cell => cell.Card.Suit)
+			.Where(c => c.GameColor == GameColor.None)
+			.Select(c => c.Card.Suit)
 			.Distinct();
+
+	public void PlaceChip(in GameColor color, in string cardName, in byte n)
+	{
+		byte i = 0;
+		for (int y = 0; y < 10; y++)
+			for (int x = 0; x < 10; x++)
+			{
+				SequenceTableCell cell = this.table[x, y];
+				if (cell.GameColor == GameColor.None &&
+					cell.Card.Name == cardName)
+					if (i++ == n)
+					{
+						cell.GameColor = color;
+						return;
+					}
+			}
+	}
 
 	public FileAttachment ToImage() => ToImage(null);
 	public FileAttachment ToImage(in FrenchCard highlightedCard)
