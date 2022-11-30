@@ -22,4 +22,7 @@ public class SequencePlayer : IPlayer
 
 	public void AddCard(FrenchCard card) =>
 		this.hand.Add(card);
+
+	public void RemoveCard(FrenchCard card) =>
+		this.hand.Remove(card);
 }

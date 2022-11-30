@@ -58,7 +58,7 @@ public class SequenceTable
 			.Select(c => c.Card.Suit)
 			.Distinct();
 
-	public void PlaceChip(in GameColor color, in string cardName, in byte n)
+	public void PlaceChip(in GameColor color, in string cardName, in byte index)
 	{
 		byte i = 0;
 		for (int y = 0; y < 10; y++)
@@ -67,7 +67,7 @@ public class SequenceTable
 				SequenceTableCell cell = this.table[x, y];
 				if (cell.GameColor == GameColor.None &&
 					cell.Card.Name == cardName)
-					if (i++ == n)
+					if (i++ == index)
 					{
 						cell.GameColor = color;
 						return;
